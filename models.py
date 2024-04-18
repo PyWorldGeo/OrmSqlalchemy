@@ -27,9 +27,11 @@ class Address(BaseModel):
 
     user_id = Column(ForeignKey("users.id"))
 
-    user = relationship("User", back_populates="addresses", uselist=False)
+    user = relationship("User", back_populates="addresses")
+
+
     def __repr__(self):
-        return f"Address(id={self.id}, city={self.city})"
+        return f"Address(id={self.id}, city={self.city}, user_id={self.user_id}, user={self.user})"
 
 
 class User(BaseModel):
@@ -38,10 +40,11 @@ class User(BaseModel):
     name = Column(String)
     age = Column(Integer)
 
-    addresses = relationship(Address)
+    addresses = relationship(Address, back_populates="user")
+
 
     def __repr__(self):
-        return f"User(id={self.id}, name={self.name})"
+        return f"User(id={self.id}, name={self.name}, address={self.addresses})"
 
 
 Base.metadata.create_all(bind=engine)

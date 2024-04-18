@@ -18,4 +18,22 @@ user1.addresses.extend([address3, address2])
 user2.addresses.append(address1)
 session.commit()
 
-print(user1.addresses)
+one_address = session.query(Address).filter_by(id=1).first()
+one_address.city = "Zestaphoni"
+session.commit()
+
+users = session.query(User).all()
+addresses = session.query(Address).all()
+
+print("\nUsers:\n")
+for user in users:
+    print(user)
+
+print("\nAddresses:\n")
+for address in addresses:
+    print(address)
+
+
+
+
+
